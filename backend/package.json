@@ -1,0 +1,21 @@
+{
+  "name": "apv-fullstack",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Administrador de Pacientes de Veterinaria",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "start": "node index.js"
+  },
+  "author": "Lucio Alvarado",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "mongoose": "^8.14.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
