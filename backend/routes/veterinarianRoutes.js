@@ -9,4 +9,6 @@ router.get('/profile', profile);
 
 router.get('/confirm/:token', confirm);
 
+router.post('/login', authenticate);
+
 export default router;
