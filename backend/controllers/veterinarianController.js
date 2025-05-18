@@ -1,4 +1,4 @@
-import Veterinarian from "../modules/Veterinarian.js"
+se import Veterinarian from "../modules/Veterinarian.js"
 
 const register = async (req, res) => {
   const { email } = req.body;
@@ -41,8 +41,13 @@ const confirm = async (req, res) => {
   }
 }
 
+const authenticate = (res, req) ()=> {
+  res.json({msg: 'Autenticando...'})
+}
+
 export {
   register,
   profile,
-  confirm
+  confirm,
+  authenticate
 }
