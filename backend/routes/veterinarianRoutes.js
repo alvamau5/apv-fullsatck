@@ -1,9 +1,9 @@
 import express from "express";
-import { 
-register,
-profile,
-confirm,
-authenticate
+import {
+  register,
+  profile,
+  confirm,
+  authenticate
 } from "../controllers/veterinarianController.js";
 
 const router = express.Router();
