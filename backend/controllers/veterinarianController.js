@@ -1,4 +1,4 @@
-se import Veterinarian from "../modules/Veterinarian.js"
+import Veterinarian from "../modules/Veterinarian.js"
 
 const register = async (req, res) => {
   const { email } = req.body;
@@ -22,15 +22,16 @@ const profile = (req, res) => {
 }
 
 const confirm = async (req, res) => {
-  const { token } = req.params;
+  const { token } = req.params
   const userConfirm = await Veterinarian.findOne({ token })
 
   if (!userConfirm) {
-    const error = new Error('Token no valido')
-    return res.status(404).json({ msg: error.message })
+    const error = new Error('Token no valido');
+    return res.status(404).json({ msg: error.message });
   }
 
-  // console.log(userConfirm)
+  console.log(userConfirm)
+
   try {
     userConfirm.token = null;
     userConfirm.confirm = true
@@ -39,10 +40,27 @@ const confirm = async (req, res) => {
   } catch (error) {
     console.log(error)
   }
+  // res.json({ msg: "Usuario confirmado correctamente" })
 }
 
-const authenticate = (res, req) ()=> {
-  res.json({msg: 'Autenticando...'})
+const authenticate = async (req, res) => {
+  // console.log(req.body);
+  const { email } = req.body
+
+  // Comprobar si el usuario exite.
+  const user = await Veterinarian.findOne({ email })
+  if (!user) {
+    const error = new Error('El Usuario no existe');
+    return res.status(404).json({ msg: error.message });
+  }
+
+  // Comprobar si la cuenta esta confirmada
+  if (!user.confirm) {
+    const error = new Error('Tu cuenta no ah sido confirmada');
+    return res.status(403).json({ msg: error.message });
+  }
+
+  // Autenticar al usuario
 }
 
 export {
