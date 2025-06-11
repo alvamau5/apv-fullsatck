@@ -39,11 +39,17 @@ const veterinarianSchema = mongoose.Schema({
 
 veterinarianSchema.pre('save', async function(next) {
   if (!this.isModified('password')) {
-    next();
+    next(); return
   }
   const salt = await bcrypt.genSalt(10);
   this.password = await bcrypt.hash(this.password, salt);
 })
+
+veterinarianSchema.methods.checkPassword = function(
+  passwordForm
+) {
+  return bcrypt.compareSync(passwordForm, this.password);
+}
 
 const Veterinarian = mongoose.model("Veterinarian", veterinarianSchema);
 export default Veterinarian;
