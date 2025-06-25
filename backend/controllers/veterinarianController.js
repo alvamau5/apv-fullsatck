@@ -19,7 +19,8 @@ const register = async (req, res) => {
 }
 
 const profile = (req, res) => {
-  res.json({ msg: "Mostrando perfil" })
+  const { veterinarian } = req //Accedes a la infromacion del usuario
+  res.json({ profile: veterinarian })
 }
 
 const confirm = async (req, res) => {
@@ -41,7 +42,6 @@ const confirm = async (req, res) => {
   } catch (error) {
     console.log(error)
   }
-  // res.json({ msg: "Usuario confirmado correctamente" })
 }
 
 const authenticate = async (req, res) => {
@@ -63,7 +63,7 @@ const authenticate = async (req, res) => {
 
   // Autenticar password
   if (await user.checkPassword(password)) {
-
+    // Autenticar
     res.json({ token: generateJWT(user.id) });
   } else {
     const error = new Error('Password incorrecto')
