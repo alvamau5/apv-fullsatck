@@ -94,24 +94,44 @@ const forgetPassword = async (req, res) => {
   }
 }
 
-const checkPassword = (req, res) => {
+const checkPassword = async (req, res) => {
+  const { token } = req.params
+
+  // console.log(token)
+
+  const validateToken = await Veterinarian.findOne({ token })
+
+  if (validateToken) {
+    res.json('Token valido y el usuario existe')
+  } else {
+    const error = new Error('Token no valido')
+    return res.status(400).json({ msg: error.message })
+  }
+}
+
+const newPassword = async (req, res) => {
   const { token } = req.params;
+  // console.log(token)
+  const { password } = req.body;
 
-  console.log(token)
+  const veterinarian = await Veterinarian.findOne({ token })
+  if (!veterinarian) {
+    const error = new Error('Hubo un error')
+    return res.status(400).json({ msg: error.message })
+  }
 
-  // const validateToken = await Veterinarian.findOne({ token })
-  //
-  // if (validateToken) {
-  //   res.json('Token valido y el usuario existe')
-  // } else {
-  //   const error = new Error('Token no valido')
-  //   return res.status(400).json({ msg: error.message })
-  // }
+  try {
+   veterinarian.token = null;
+   veterinarian.password = password;
+    // console.log(veterinarian)
+   await veterinarian.save()
+   res.json({msg: 'Password modificado correctamente'})
+  } catch (error) {
+   console.log(error)
+  }
+
 }
 
-const newPassword = () => {
-
-}
 export {
   register,
   profile,
