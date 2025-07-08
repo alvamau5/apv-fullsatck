@@ -16,7 +16,7 @@ router.post('/', register);
 router.get('/confirm/:token', confirm);
 router.post('/login', authenticate);
 router.post('/forget-password', forgetPassword);
-router.route('forget-password/:token').get(checkPassword).post(newPassword);
+router.route('/forget-password/:token').get(checkPassword).post(newPassword);
 
 // private area
 router.get('/profile', checkAuth, profile);
