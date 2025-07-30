@@ -1,10 +1,13 @@
-import express from "express";
+import express from "express"
+const router = express.Router();
 import {
   addPatient,
-  getPatient
-} from "../controllers/patientController";
-const router = express.Router();
+  getPatients
+} from "../controllers/patientController.js";
+import checkAuth from "../middleware/authMiddleware.js"
 
-router.route('/').get(addPatient).post(getPatient)
+router.route('/')
+  .post(checkAuth, addPatient).
+  get(checkAuth, getPatients);
 
 export default router;
