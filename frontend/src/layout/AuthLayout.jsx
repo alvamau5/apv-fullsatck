@@ -1,9 +1,17 @@
+/* *
+ * Outlet es un componente que carga desde
+ * la pagina a visitar el primer componente y
+ * cargara su contenido
+ * */
+
+import { Outlet } from "react-router-dom"
+
 const AuthLayout = () => {
   return (
     <>
-      <h1>
-        Desde Auth Layout
-      </h1>
+      <main className="container mx-auto md:grid md:grid-cols-2">
+        <Outlet />
+      </main>
     </>
   )
 }
