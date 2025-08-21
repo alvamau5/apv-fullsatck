@@ -1,5 +1,13 @@
+import { useState } from "react"
+import { Link } from "react-router-dom"
+
 
 const Register = () => {
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [repeatPassword, setRepeatPassword] = useState('')
+
   return (
     <>
       <div>
@@ -24,6 +32,8 @@ const Register = () => {
               placeholder="Tu nombre"
               className="border w-full p-3 mt-3 bg-gray-50
               rounded-xl"
+              value={name}
+              onChange={e => setName(e.target.value)}
             />
           </div>
           <div className="my-5">
@@ -64,13 +74,25 @@ const Register = () => {
             />
             <input
               type="submit"
-              value="Iniciar Sesion"
+              value="Crear cuenta"
               className="bg-indigo-700 w-full py-3 px-10
               rounded-xl text-white uppercase font-bold mt-5
               hover:cursor-pointer hover:bg-indigo-800 md:w-auto"
             />
           </div>
         </form>
+        <nav className="mt-10 lg:flex lg:justify-between">
+          <Link
+            className="block text-center my-5 text-gray-500"
+            to="/register">
+            Ya tienes cuenta? Inicia Sesion
+          </Link>
+          <Link
+            className="block text-center my-5 text-gray-500"
+            to="/forwad-password">
+            Olvide mi password
+          </Link>
+        </nav>
       </div>
     </>
   )
