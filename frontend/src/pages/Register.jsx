@@ -47,6 +47,8 @@ const Register = () => {
               placeholder="Email de Registro"
               className="border w-full p-3 mt-3 bg-gray-50
               rounded-xl"
+              value={email}
+              onChange={e => setEmail(e.target.value)}
             />
           </div>
           <div>
@@ -60,6 +62,8 @@ const Register = () => {
               placeholder="Tu Password"
               className="border w-full p-3 mt-3 bg-gray-50
               rounded-xl"
+              value={password}
+              onChange={e => setPassword(e.target.value)}
             />
             <label
               className="uppercase text-gray-600 block text-xl
@@ -71,6 +75,8 @@ const Register = () => {
               placeholder="Confirma Password"
               className="border w-full p-3 mt-3 bg-gray-50
               rounded-xl"
+              value={repeatPassword}
+              onChange={e => setRepeatPassword(e.target.value)}
             />
             <input
               type="submit"
