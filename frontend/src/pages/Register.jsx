@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { Link } from "react-router-dom"
-
+import { Alert } from "../components/Alert"
 
 const Register = () => {
   const [name, setName] = useState('')
@@ -8,25 +8,30 @@ const Register = () => {
   const [password, setPassword] = useState('')
   const [repeatPassword, setRepeatPassword] = useState('')
 
+  const [alert, setAlert] = useState({})
+
   const handleSubmit = e => {
     e.preventDefault();
 
     if ([name, email, password, repeatPassword].includes('')) {
-
-      console.log('Hay campos vacios')
+      setAlert({ msg: 'Hay campos vacios', error: true })
       return;
     }
 
     if (password !== repeatPassword) {
-
-      console.log('Los passwords no coinciden')
+      setAlert({ msg: 'Los passwords no coinciden', error: true })
+      return;
     }
 
     if (password.length < 6) {
-
-      console.log('La password es muy corta')
+      setAlert({ msg: 'La password es muy corta', error: true })
+      return;
     }
+
+    setAlert({})
   }
+
+  const { msg } = alert;
 
   return (
     <>
@@ -40,6 +45,11 @@ const Register = () => {
       <div className="mt-20 md:mt-5 shadow-lg px-5 py-10
         rounded-xl">
 
+        {msg &&
+          <Alert
+            alert={alert}
+          />
+        }
         <form
           onSubmit={handleSubmit}
         >
