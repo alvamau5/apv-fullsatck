@@ -1,18 +1,27 @@
 import Veterinarian from "../modules/Veterinarian.js"
 import generateJWT from '../helpers/generateJWT.js'
 import generateId from "../helpers/generateId.js"
+import emailRegister from "../helpers/emailRegister.js"
 
 const register = async (req, res) => {
-  const { email } = req.body;
+  const { email, name, token } = req.body;
 
+  // Prevenir usuarios registrados
   const userExist = await Veterinarian.findOne({ email })
   if (userExist) {
     const error = new Error('Usuario ya registrado')
-    return res.status(400).json({ img: error.message })
+    return res.status(400).json({ msg: error.message })
   }
   try {
     const veterinarian = new Veterinarian(req.body);
     const savedVeterninarian = await veterinarian.save();
+
+    emailRegister({
+      email,
+      name,
+      token: savedVeterninarian.token,
+    })
+
     res.json(savedVeterninarian)
   } catch (error) {
     console.log(error)
@@ -121,13 +130,13 @@ const newPassword = async (req, res) => {
   }
 
   try {
-   veterinarian.token = null;
-   veterinarian.password = password;
+    veterinarian.token = null;
+    veterinarian.password = password;
     // console.log(veterinarian)
-   await veterinarian.save()
-   res.json({msg: 'Password modificado correctamente'})
+    await veterinarian.save()
+    res.json({ msg: 'Password modificado correctamente' })
   } catch (error) {
-   console.log(error)
+    console.log(error)
   }
 
 }
