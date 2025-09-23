@@ -4,7 +4,7 @@ import generateId from "../helpers/generateId.js"
 import emailRegister from "../helpers/emailRegister.js"
 
 const register = async (req, res) => {
-  const { email, name, token } = req.body;
+  const { email, name } = req.body;
 
   // Prevenir usuarios registrados
   const userExist = await Veterinarian.findOne({ email })
@@ -19,7 +19,7 @@ const register = async (req, res) => {
     emailRegister({
       email,
       name,
-      token: savedVeterninarian.token,
+      token: savedVeterninarian.token
     })
 
     res.json(savedVeterninarian)
