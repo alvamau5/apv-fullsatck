@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import AuthLayout from './layout/AuthLayout' // Pagina maestra donde se registraran todos los cambios
 import Login from './pages/Login'
 import Register from './pages/Register'
-import CheckCount from './pages/CheckCount'
+import Confirm from './pages/Confirm'
 import ForwadPassword from './pages/ForwadPassword'
 
 function App() {
@@ -13,8 +13,8 @@ function App() {
         <Route path='/' element={<AuthLayout />}>
           <Route index element={<Login />} />
           <Route path='register' element={<Register />} />
-          <Route path='check-count' element={<CheckCount />} />
           <Route path='forwad-password' element={<ForwadPassword />} />
+          <Route path='confirm/:id' element={<Confirm />} />
         </Route>
       </Routes>
     </BrowserRouter>

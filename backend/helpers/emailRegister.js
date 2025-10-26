@@ -23,7 +23,7 @@ const emailRegister = async (data) => {
       html: `<p>Hola: ${name}, comprueba tu cuenta APV.</p>
           <p>Tu cuenta ya esta lista, solo debes comprobarla
             en el siguiente enlace:
-            <a href="${process.env.FRONTEND_URL}/check-count/${token}"> Comprobar cuenta</a>
+            <a href="${process.env.FRONTEND_URL}/confirm/${token}"> Comprobar cuenta</a>
           </p>
           <p> Si tu no creaste esta cuenta, ingnora el mensaje</p>
     `

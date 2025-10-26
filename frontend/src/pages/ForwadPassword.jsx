@@ -36,19 +36,19 @@ const ForwadPassword = () => {
               hover:cursor-pointer hover:bg-indigo-800 md:w-auto"
           />
         </form>
+        <nav className="mt-10 lg:flex lg:justify-between">
+          <Link
+            className="block text-center my-5 text-gray-500"
+            to="/">
+            Ya tienes cuenta? Inicia Sesion
+          </Link>
+          <Link
+            className="block text-center my-5 text-gray-500"
+            to="/register">
+            No tienes una cuenta? Registrate
+          </Link>
+        </nav>
       </div>
-      <nav className="mt-10 lg:flex lg:justify-between">
-        <Link
-          className="block text-center my-5 text-gray-500"
-          to="/login">
-          Ya tienes cuenta? Inicia Sesion
-        </Link>
-        <Link
-          className="block text-center my-5 text-gray-500"
-          to="/register">
-          No tienes una cuenta? Registrate
-        </Link>
-      </nav>
     </>
   )
 }

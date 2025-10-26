@@ -139,7 +139,7 @@ const Register = () => {
         <nav className="mt-10 lg:flex lg:justify-between">
           <Link
             className="block text-center my-5 text-gray-500"
-            to="/register">
+            to="/">
             Ya tienes cuenta? Inicia Sesion
           </Link>
           <Link
