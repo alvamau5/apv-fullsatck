@@ -7,6 +7,7 @@ const NewPassword = () => {
   const [password, setPassword] = useState("");
   const [alert, setAlert] = useState({});
   const [validToken, setValidToken] = useState(false);
+  const [passwordModificated, setPasswordModificated] = useState(false);
 
   const params = useParams();
   const { token } = params;
@@ -42,12 +43,12 @@ const NewPassword = () => {
     }
 
     try {
-      const url = `/veterinarians/forget-passowrd/${token}`;
+      const url = `/veterinarians/forget-password/${token}`;
       const { data } = await clientAxios.post(url, { password });
-      console.log(data);
       setAlert({
         msg: data.msg,
       });
+      setPasswordModificated(true);
     } catch (error) {
       setAlert({
         msg: error.response.data.msg,
@@ -100,11 +101,12 @@ const NewPassword = () => {
             </div>
           </form>
         )}
-        <nav className="mt-10 lg:flex lg:justify-between">
+
+        {passwordModificated && (
           <Link className="block text-center my-5 text-gray-500" to="/">
-            Ya tienes cuenta? Inicia Sesion
+            Inicia Sesion
           </Link>
-        </nav>
+        )}
       </div>
     </>
   );
