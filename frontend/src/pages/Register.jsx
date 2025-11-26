@@ -1,52 +1,51 @@
-import { useState } from "react"
-import axios from "axios"
-import { Link } from "react-router-dom"
-import { Alert } from "../components/Alert"
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { Alert } from "../components/Alert";
+import clientAxios from "../config/axios";
 
 const Register = () => {
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [repeatPassword, setRepeatPassword] = useState('')
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [repeatPassword, setRepeatPassword] = useState("");
 
-  const [alert, setAlert] = useState({})
+  const [alert, setAlert] = useState({});
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if ([name, email, password, repeatPassword].includes('')) {
-      setAlert({ msg: 'Hay campos vacios', error: true })
+    if ([name, email, password, repeatPassword].includes("")) {
+      setAlert({ msg: "Hay campos vacios", error: true });
       return;
     }
 
     if (password !== repeatPassword) {
-      setAlert({ msg: 'Los passwords no coinciden', error: true })
+      setAlert({ msg: "Los passwords no coinciden", error: true });
       return;
     }
 
     if (password.length < 6) {
-      setAlert({ msg: 'La password es muy corta', error: true })
+      setAlert({ msg: "La password es muy corta", error: true });
       return;
     }
 
-    setAlert({})
+    setAlert({});
 
     //Creando usuario desde la API
 
     try {
-      const url = "http://localhost:4000/api/veterinarians"
-      const res = await axios.post(url, { name, email, password })
+      await clientAxios.post("/veterinarians", { name, email, password });
       setAlert({
-        msg: 'Creado correctamente, revisa tu email',
-        error: false
-      })
+        msg: "Creado correctamente, revisa tu email",
+        error: false,
+      });
     } catch (error) {
       setAlert({
         msg: error.response.data.msg,
-        error: true
-      })
+        error: true,
+      });
     }
-  }
+  };
 
   const { msg } = alert;
 
@@ -59,17 +58,12 @@ const Register = () => {
         </h1>
       </div>
 
-      <div className="mt-20 md:mt-5 shadow-lg px-5 py-10
-        rounded-xl">
-
-        {msg &&
-          <Alert
-            alert={alert}
-          />
-        }
-        <form
-          onSubmit={handleSubmit}
-        >
+      <div
+        className="mt-20 md:mt-5 shadow-lg px-5 py-10
+        rounded-xl"
+      >
+        {msg && <Alert alert={alert} />}
+        <form onSubmit={handleSubmit}>
           <div className="my-5">
             <label
               className="uppercase text-gray-600 block text-xl
@@ -77,12 +71,13 @@ const Register = () => {
             >
               Name
             </label>
-            <input type="text"
+            <input
+              type="text"
               placeholder="Tu nombre"
               className="border w-full p-3 mt-3 bg-gray-50
               rounded-xl"
               value={name}
-              onChange={e => setName(e.target.value)}
+              onChange={(e) => setName(e.target.value)}
             />
           </div>
           <div className="my-5">
@@ -92,12 +87,13 @@ const Register = () => {
             >
               Email
             </label>
-            <input type="email"
+            <input
+              type="email"
               placeholder="Email de Registro"
               className="border w-full p-3 mt-3 bg-gray-50
               rounded-xl"
               value={email}
-              onChange={e => setEmail(e.target.value)}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
           <div>
@@ -107,12 +103,13 @@ const Register = () => {
             >
               Password
             </label>
-            <input type="password"
+            <input
+              type="password"
               placeholder="Tu Password"
               className="border w-full p-3 mt-3 bg-gray-50
               rounded-xl"
               value={password}
-              onChange={e => setPassword(e.target.value)}
+              onChange={(e) => setPassword(e.target.value)}
             />
             <label
               className="uppercase text-gray-600 block text-xl
@@ -120,12 +117,13 @@ const Register = () => {
             >
               Confirma tu Password
             </label>
-            <input type="password"
+            <input
+              type="password"
               placeholder="Confirma Password"
               className="border w-full p-3 mt-3 bg-gray-50
               rounded-xl"
               value={repeatPassword}
-              onChange={e => setRepeatPassword(e.target.value)}
+              onChange={(e) => setRepeatPassword(e.target.value)}
             />
             <input
               type="submit"
@@ -137,20 +135,19 @@ const Register = () => {
           </div>
         </form>
         <nav className="mt-10 lg:flex lg:justify-between">
-          <Link
-            className="block text-center my-5 text-gray-500"
-            to="/">
+          <Link className="block text-center my-5 text-gray-500" to="/">
             Ya tienes cuenta? Inicia Sesion
           </Link>
           <Link
             className="block text-center my-5 text-gray-500"
-            to="/forwad-password">
+            to="/forget-password"
+          >
             Olvide mi password
           </Link>
         </nav>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default Register
+export default Register;

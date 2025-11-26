@@ -8,4 +8,3 @@ export const Alert = ({ alert }) => {
     </div >
   )
 }
-

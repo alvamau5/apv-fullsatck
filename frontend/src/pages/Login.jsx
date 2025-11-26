@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
 
 const Login = () => {
   return (
@@ -10,8 +10,10 @@ const Login = () => {
         </h1>
       </div>
 
-      <div className="mt-20 md:mt-5 shadow-lg px-5 py-10
-        rounded-xl">
+      <div
+        className="mt-20 md:mt-5 shadow-lg px-5 py-10
+        rounded-xl"
+      >
         <form>
           <div className="my-5">
             <label
@@ -20,7 +22,8 @@ const Login = () => {
             >
               Email
             </label>
-            <input type="email"
+            <input
+              type="email"
               placeholder="Email de Registro"
               className="border w-full p-3 mt-3 bg-gray-50
               rounded-xl"
@@ -33,7 +36,8 @@ const Login = () => {
             >
               Password
             </label>
-            <input type="password"
+            <input
+              type="password"
               placeholder="Tu Password"
               className="border w-full p-3 mt-3 bg-gray-50
               rounded-xl"
@@ -48,20 +52,19 @@ const Login = () => {
           </div>
         </form>
         <nav className="mt-10 lg:flex lg:justify-between">
-          <Link
-            className="block text-center my-5 text-gray-500"
-            to="/register">
+          <Link className="block text-center my-5 text-gray-500" to="/register">
             No tienes una cuenta? Registrate
           </Link>
           <Link
             className="block text-center my-5 text-gray-500"
-            to="/forwad-password">
+            to="/forget-password"
+          >
             Olvide mi password
           </Link>
         </nav>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;
