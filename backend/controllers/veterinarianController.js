@@ -31,7 +31,7 @@ const register = async (req, res) => {
 
 const profile = (req, res) => {
   const { veterinarian } = req; //Accedes a la infromacion del usuario
-  res.json({ profile: veterinarian });
+  res.json(veterinarian);
 };
 
 const confirm = async (req, res) => {
@@ -57,7 +57,7 @@ const confirm = async (req, res) => {
 
 const authenticate = async (req, res) => {
   // console.log(req.body);
-  const { email, password, id } = req.body;
+  const { email, password } = req.body;
 
   // Comprobar si el usuario exite.
   const user = await Veterinarian.findOne({ email });
