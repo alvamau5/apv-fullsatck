@@ -5,11 +5,15 @@ const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
   const [auth, setAuth] = useState({});
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const authenticatedUser = async () => {
       const token = localStorage.getItem("token");
-      if (!token) return;
+      if (!token) {
+        setLoading(false); // No hay token, no autenticado
+        return;
+      }
 
       const config = {
         headers: {
@@ -25,12 +29,26 @@ const AuthProvider = ({ children }) => {
         console.log(error.response.data.msg);
         setAuth({});
       }
+
+      setLoading(false);
     };
     authenticatedUser();
   }, []);
 
+  const logout = () => {
+    localStorage.removeItem("token");
+    setAuth({});
+  };
+
   return (
-    <AuthContext.Provider value={{ auth, setAuth }}>
+    <AuthContext.Provider
+      value={{
+        auth,
+        setAuth,
+        loading,
+        logout,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );
