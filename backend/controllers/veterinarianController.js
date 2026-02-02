@@ -79,7 +79,7 @@ const authenticate = async (req, res) => {
       _id: user._id,
       name: user.name,
       email: user.email,
-      token: generateJWT(user.id),
+      token: generateJWT(user._id),
     });
   } else {
     const error = new Error("Password incorrecto");
