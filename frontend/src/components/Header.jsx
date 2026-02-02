@@ -13,8 +13,8 @@ const Header = () => {
       >
         <h1
           className="font-bold
-          text-indigo-200 text-2xl"
-          text-center
+          text-indigo-200 text-2xl
+          text-center"
         >
           Administrador de Pacientes de {""}
           <span className="text-white font-bold"> Veterinaria </span>
