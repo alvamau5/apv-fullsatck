@@ -7,27 +7,34 @@ import Confirm from "./pages/Confirm";
 import ForgetPassword from "./pages/ForgetPassword";
 import NewPassword from "./pages/NewPassword";
 import PatientAdmin from "./pages/PatientAdmin";
+import EditProfile from "./pages/EditProfile";
+import UpdatePassword from "./pages/UpdatePassword";
 
 import { AuthProvider } from "./context/AuthProvider";
+import { PatientProvider } from "./context/PatientProvider";
 
 function App() {
   return (
     <BrowserRouter>
       <AuthProvider>
-        <Routes>
-          <Route path="/" element={<AuthLayout />}>
-            <Route index element={<Login />} />
-            <Route path="register" element={<Register />} />
-            <Route path="forget-password" element={<ForgetPassword />} />
-            <Route path="forget-password/:token" element={<NewPassword />} />
-            <Route path="confirm/:id" element={<Confirm />} />
-          </Route>
+        <PatientProvider>
+          <Routes>
+            <Route path="/" element={<AuthLayout />}>
+              <Route index element={<Login />} />
+              <Route path="register" element={<Register />} />
+              <Route path="forget-password" element={<ForgetPassword />} />
+              <Route path="forget-password/:token" element={<NewPassword />} />
+              <Route path="confirm/:id" element={<Confirm />} />
+            </Route>
 
-          {/* Rutas Protegidas */}
-          <Route path="/admin" element={<ProtectedRoute />}>
-            <Route index element={<PatientAdmin />} />
-          </Route>
-        </Routes>
+            {/* Rutas Protegidas */}
+            <Route path="/admin" element={<ProtectedRoute />}>
+              <Route index element={<PatientAdmin />} />
+              <Route path="profile" element={<EditProfile />} />
+              <Route path="update-password" element={<UpdatePassword />} />
+            </Route>
+          </Routes>
+        </PatientProvider>
       </AuthProvider>
     </BrowserRouter>
   );
