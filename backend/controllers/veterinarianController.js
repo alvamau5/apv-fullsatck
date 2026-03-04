@@ -151,6 +151,29 @@ const newPassword = async (req, res) => {
   }
 };
 
+const updateProfile = async (req, res) => {
+  const { id } = req.params;
+  const veterinarian = await Veterinarian.findById(id);
+
+  if (!veterinarian) {
+    const error = new Error("Hubo un error");
+    return res.status(400).json({ msg: error.message });
+  }
+
+  const { name, email, web, phone } = req.body;
+  veterinarian.name = name;
+  veterinarian.email = email;
+  veterinarian.web = web;
+  veterinarian.phone = phone;
+
+  try {
+    const updatedVeterinarian = await veterinarian.save();
+    res.json(updatedVeterinarian);
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 export {
   register,
   profile,
@@ -159,4 +182,5 @@ export {
   forgetPassword,
   checkPassword,
   newPassword,
+  updateProfile,
 };
