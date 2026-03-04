@@ -1,14 +1,42 @@
 import { useEffect, useState } from "react";
 import AdminNav from "../components/AdminNav";
 import useAuth from "../hooks/useAuth";
+import Alert from "../components/Alert"
 
 const EditProfile = () => {
-  const { auth } = useAuth();
+  const { auth, updateProfile } = useAuth();
   const [profile, setProfile] = useState({});
+  const [alert, setAlert] = useState({})
 
   useEffect(() => {
     setProfile(auth);
   }, [auth]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const { name, email } = profile;
+
+    if ([name, email].includes('')) {
+      setAlert({
+        msg: 'Los campos Nombre y Email son obligatorios',
+        error: true
+      })
+      return;
+    }
+
+    updateProfile(profile)
+  }
+
+
+  const handleChange = e => {
+    setProfile({
+      ...profile,
+      [e.target.name]: e.target.value
+    })
+  }
+
+  const { msg } = alert;
 
   return (
     <>
@@ -20,45 +48,54 @@ const EditProfile = () => {
 
       <div className="flex justify-center">
         <div className="w-full md:w-1/2 bg-white shadow rounded-lg p-5">
-          <form>
+          {msg && <Alert alert={alert} />}
+          <form onSubmit={handleSubmit}>
             <div className="my-4">
-              <label className="text-gray-600" uppercase font-bold>
+              <label className="text-gray-600 uppercase font-bold">
                 Nombre
               </label>
               <input
                 type="text"
                 className="border bg-gray-50 w-full p-2 mt-5 rounded-lg"
                 name="name"
+                value={profile.name || ''}
+                onChange={handleChange}
               />
             </div>
             <div className="my-4">
-              <label className="text-gray-600" uppercase font-bold>
+              <label className="text-gray-600 uppercase font-bold">
                 Sitio Web
               </label>
               <input
                 type="text"
                 className="border bg-gray-50 w-full p-2 mt-5 rounded-lg"
                 name="web"
+                value={profile.web || ''}
+                onChange={handleChange}
               />
             </div>
             <div className="my-4">
-              <label className="text-gray-600" uppercase font-bold>
+              <label className="text-gray-600 uppercase font-bold">
                 Telefono
               </label>
               <input
                 type="text"
                 className="border bg-gray-50 w-full p-2 mt-5 rounded-lg"
                 name="phone"
+                value={profile.phone || ''}
+                onChange={handleChange}
               />
             </div>
             <div className="my-4">
-              <label className="text-gray-600" uppercase font-bold>
+              <label className="text-gray-600 uppercase font-bold">
                 Email
               </label>
               <input
                 type="text"
                 className="border bg-gray-50 w-full p-2 mt-5 rounded-lg"
                 name="email"
+                value={profile.email || ''}
+                onChange={handleChange}
               />
             </div>
             <input
