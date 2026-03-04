@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Alert } from "../components/Alert";
+import Alert from "../components/Alert";
 import usePatients from "../hooks/usePatients";
 
 function Form() {
