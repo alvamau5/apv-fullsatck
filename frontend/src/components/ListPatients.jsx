@@ -3,7 +3,7 @@ import Patient from "../components/Patient";
 
 const ListPatients = () => {
   const { patients } = usePatients();
-  console.log(patients);
+  // console.log(patients);
   return (
     <>
       {patients.length ? (
