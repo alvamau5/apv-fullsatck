@@ -4,13 +4,19 @@
  * cargara su contenido
  * */
 
-import { Outlet } from "react-router-dom"
+import { Outlet, Navigate} from "react-router-dom"
+import useAuth from "../hooks/useAuth"
 
 const AuthLayout = () => {
+
+  const { auth, loadign } = useAuth();
+
+  if (loadign) return "Cargando...";
+
   return (
     <>
       <main className="container mx-auto md:grid md:grid-cols-2 gap-10 p-5">
-        <Outlet />
+    {auth?._id ? <Navigate to = '/admin' /> : <Outlet />}
       </main>
     </>
   )
