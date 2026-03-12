@@ -25,9 +25,10 @@ const EditProfile = () => {
       return;
     }
 
-    updateProfile(profile)
-  }
+    const result = await updateProfile(profile)
 
+    setAlert(result)
+  }
 
   const handleChange = e => {
     setProfile({
