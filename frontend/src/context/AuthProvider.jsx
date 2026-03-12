@@ -38,7 +38,7 @@ const AuthProvider = ({ children }) => {
       setLoading(false);
     };
     authenticatedUser();
-  }, []);
+  }, [navigate]);
 
   const logout = () => {
     localStorage.removeItem("token");
@@ -62,10 +62,48 @@ const AuthProvider = ({ children }) => {
     try {
       const url = `/veterinarians/profile/${profileData._id}`
       const { data } = await clientAxios.put(url, profileData, config)
-      // setAuth(data); // Update status with the updated data
-      console.log(data)
+      setAuth(data); // Update status with the updated data
+      return {
+        msg: 'Almacenado Correctamente'
+      }
     } catch (error) {
-      console.log(error.response)
+      return {
+        msg: error.response.data.msg,
+        error: true
+      }
+    }
+  }
+
+  const savePassword = async (pwdData) => {
+    // console.g(pwdData)
+    const token = localStorage.getItem('token');
+    if (!token) {
+      setLoading(false)
+      return;
+    }
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      }
+    }
+
+    try {
+      const url = '/veterinarians/validate-password'
+      const { data } = await clientAxios.put(url, pwdData, config)
+      // console.log(data)
+
+      return {
+        msg: data.msg
+      }
+    } catch (error) {
+      // console.log(error.response.data.msg)
+      return {
+        msg: error.response?.data?.msg || 'Hubo un error',
+        error: true
+      }
+
     }
   }
 
@@ -77,6 +115,7 @@ const AuthProvider = ({ children }) => {
         loading,
         logout,
         updateProfile,
+        savePassword
       }}
     >
       {children}
