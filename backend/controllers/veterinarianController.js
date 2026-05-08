@@ -162,17 +162,15 @@ const updateProfile = async (req, res) => {
 
   const { email } = req.body;
   if (veterinarian.email !== req.body.email) {
-    const existEmail = await Veterinarian.findOne({ email })
+    const existEmail = await Veterinarian.findOne({ email });
 
     if (existEmail) {
-      const error = new Error('Este email ya esta en uso');
+      const error = new Error("Este email ya esta en uso");
       return res.status(400).json({ msg: error.message });
     }
   }
 
-
   try {
-
     const { name, email, web, phone, password } = req.body;
     veterinarian.name = name;
     veterinarian.email = email;
@@ -183,9 +181,9 @@ const updateProfile = async (req, res) => {
     const updatedVeterinarian = await veterinarian.save();
     res.json(updatedVeterinarian);
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-}
+};
 
 const updatePassword = async (req, res) => {
   // console.log(req.veterinarian)
@@ -197,30 +195,30 @@ const updatePassword = async (req, res) => {
 
   try {
     // Checkauth the veterinarian exists
-    const veterinarian = await Veterinarian.findById(id)
+    const veterinarian = await Veterinarian.findById(id);
     if (!veterinarian) {
-      const error = new Error('Usuario no encontrado')
-      return res.status(400).json({ msg: error.message })
+      const error = new Error("Usuario no encontrado");
+      return res.status(400).json({ msg: error.message });
     }
 
-    // Validate current password 
-    const isMathc = await veterinarian.checkPassword(pwd_current)
+    // Validate current password
+    const isMathc = await veterinarian.checkPassword(pwd_current);
     if (isMathc) {
       // console.log('correcto')
 
       // Update password (el middleware pre('save') del modelo se carga del has)
       veterinarian.password = pwd_new;
       await veterinarian.save();
-      res.json({ msg: 'El password se a guardado con exito' })
+      res.json({ msg: "El password se a guardado con exito" });
     } else {
       // console.log('incorrecto')
-      const error = new Error('El password nuevo debe ser diferente al actual')
-      return res.json({ msg: error.message })
+      const error = new Error("El password nuevo debe ser diferente al actual");
+      return res.json({ msg: error.message });
     }
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-}
+};
 
 export {
   register,
@@ -231,5 +229,5 @@ export {
   checkPassword,
   newPassword,
   updateProfile,
-  updatePassword
+  updatePassword,
 };
